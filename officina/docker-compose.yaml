@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest  # Corretto il nome dell'immagine
+    image: postgres:latest
     container_name: officina_postgres
     environment:
       - POSTGRES_DB=officina_db
@@ -13,5 +13,24 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  officina:
+    image: openjdk:17-jdk-slim
+    container_name: officina_app
+    build:
+      context: .
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/officina_db
+      SPRING_DATASOURCE_USERNAME: officina_user
+      SPRING_DATASOURCE_PASSWORD: officina_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: dev
+    volumes:
+      - ./target:/app
+    command: java -jar /app/officina-0.0.1-SNAPSHOT.jar
+
 volumes:
-  postgres-data:
+  postgres-data:  # Dichiarazione del volume
