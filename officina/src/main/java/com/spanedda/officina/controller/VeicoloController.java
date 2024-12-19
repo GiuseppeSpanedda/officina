@@ -19,7 +19,7 @@ public class VeicoloController {
         return veicoloService.findAll();
     }
 
-    @PostMapping("/veicoli")
+    @PostMapping("/create")
     public Veicolo createVeicolo(@RequestBody Veicolo veicolo) {
         return veicoloService.save(veicolo);
     }
