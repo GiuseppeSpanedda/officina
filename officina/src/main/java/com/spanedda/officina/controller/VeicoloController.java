@@ -21,6 +21,7 @@ public class VeicoloController {
 
     @PostMapping("/create")
     public Veicolo createVeicolo(@RequestBody Veicolo veicolo) {
+        System.out.println("Dati ricevuti: " + veicolo.getTipo() + " " + veicolo.getModello());
         return veicoloService.save(veicolo);
     }
 }

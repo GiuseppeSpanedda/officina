@@ -14,4 +14,5 @@ public class Veicolo {
     private Long id;
     private String tipo;
     private String modello;
+    private String targa;
 }
